@@ -127,7 +127,7 @@ static int __init sbd_init(void) {
 	major_num = register_blkdev(major_num, "sbd");// dynamic , because major == 0
 	if (major_num < 0) {
 		printk(KERN_WARNING "sbd: unable to get major number\n");
-		goto out;
+		goto out_register_blkdev;
 	}
 	/*
 	 * And the gendisk structure.
@@ -150,6 +150,9 @@ static int __init sbd_init(void) {
 out_unregister:
 	unregister_blkdev(major_num, "sbd");
 
+out_register_blkdev:
+	blk_cleanup_queue(Queue);
+		
 out:
 	vfree(Device.data);
 	return -ENOMEM;
