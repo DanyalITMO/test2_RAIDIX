@@ -38,7 +38,7 @@ static struct request_queue *Queue;
  */
 static struct sbd_device {
 	unsigned long size; //size in byte
-	spinlock_t lock; //mutex
+	spinlock_t lock; //atomic operation
 	u8 *data; // 
 	struct gendisk *gd; //defined  on 141 line in genhd.h (2.6.32)
 } Device;
